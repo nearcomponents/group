@@ -13,8 +13,10 @@ use core::fmt;
 use core::iter::Sum;
 use core::ops::{Add, AddAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 use ff::PrimeField;
-use rand_core::RngCore;
 use subtle::{Choice, CtOption};
+
+#[cfg(feature = "rand_core")]
+use rand_core::RngCore;
 
 pub mod cofactor;
 pub mod prime;
@@ -72,6 +74,7 @@ pub trait Group:
     /// Scalars modulo the order of this group's scalar field.
     type Scalar: PrimeField;
 
+    #[cfg(feature = "rand_core")]
     /// Returns an element chosen uniformly at random from the non-identity elements of
     /// this group.
     ///
